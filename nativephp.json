@@ -1,0 +1,40 @@
+﻿{
+  "name": "iamdevroyal/mobile-biometrics",
+  "display_name": "Mobile Biometrics",
+  "namespace": "Biometrics",
+
+  "bridge_functions": [
+    {
+      "name": "Biometrics.IsAvailable",
+      "android": "com.iamdevroyal.mobilebiometrics.BiometricsPlugin.IsAvailable",
+      "ios": "BiometricsPlugin.IsAvailable",
+      "description": "Checks whether strong biometric authentication hardware is available and enrolled."
+    },
+    {
+      "name": "Biometrics.GetTypes",
+      "android": "com.iamdevroyal.mobilebiometrics.BiometricsPlugin.GetTypes",
+      "ios": "BiometricsPlugin.GetTypes",
+      "description": "Returns supported and enrolled biometric sensor types (faceid, touchid, biometric)."
+    },
+    {
+      "name": "Biometrics.Authenticate",
+      "android": "com.iamdevroyal.mobilebiometrics.BiometricsPlugin.Authenticate",
+      "ios": "BiometricsPlugin.Authenticate",
+      "description": "Prompts the user for biometric authentication with timeout bounding."
+    }
+  ],
+  "android": {
+    "min_version": 33,
+    "dependencies": {
+      "implementation": [
+        "androidx.biometric:biometric:1.2.0-alpha05"
+      ]
+    }
+  },
+  "ios": {
+    "min_version": "18.2",
+    "info_plist": {
+      "NSFaceIDUsageDescription": "This app uses Face ID to confirm your identity for sensitive actions."
+    }
+  }
+}

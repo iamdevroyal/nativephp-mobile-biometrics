@@ -1,0 +1,9 @@
+﻿# Composer vendor directory
+/vendor/
+composer.lock
+
+# IDE / OS
+.idea/
+.vscode/
+*.DS_Store
+Thumbs.db
