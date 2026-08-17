@@ -1,9 +1,18 @@
 {
-  "name": "iamdevroyal/mobile-biometrics",
+  "name": "iamdevroyal/nativephp-mobile-biometrics",
   "description": "Biometric authentication plugin for NativePHP Mobile (Touch ID, Face ID, Fingerprint) — BIOMETRIC_STRONG enforcement, timeout-bounded native calls, and pre-flight availability checks.",
   "type": "nativephp-plugin",
   "license": "MIT",
-  "keywords": ["nativephp", "biometrics", "faceid", "touchid", "fingerprint", "security", "laravel", "mobile"],
+  "keywords": [
+    "nativephp",
+    "biometrics",
+    "faceid",
+    "touchid",
+    "fingerprint",
+    "security",
+    "laravel",
+    "mobile"
+  ],
   "autoload": {
     "psr-4": {
       "Iamdevroyal\\MobileBiometrics\\": "src/"

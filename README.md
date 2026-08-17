@@ -1,4 +1,4 @@
-# iamdevroyal/mobile-biometrics
+# iamdevroyal/nativephp-mobile-biometrics
 
 **Free, MIT-licensed** biometric authentication plugin for [NativePHP Mobile](https://nativephp.com).  
 Provides native **Face ID**, **Touch ID**, and **Android Biometric (Fingerprint/Class 3 Strong)** authentication for your Laravel + NativePHP mobile applications across Android and iOS.
@@ -77,7 +77,7 @@ On rooted or jailbroken devices, or in the presence of client-side WebView compr
 ### 1. Require the Package
 
 ```bash
-composer require iamdevroyal/mobile-biometrics
+composer require iamdevroyal/nativephp-mobile-biometrics
 ```
 
 Laravel package auto-discovery registers `MobileBiometricsServiceProvider` and the `Biometrics` facade automatically.
@@ -85,7 +85,7 @@ Laravel package auto-discovery registers `MobileBiometricsServiceProvider` and t
 ### 2. Register the Plugin with NativePHP
 
 ```bash
-php artisan native:plugin:register iamdevroyal/mobile-biometrics
+php artisan native:plugin:register iamdevroyal/nativephp-mobile-biometrics
 ```
 
 ### 3. Validate & Build
@@ -167,7 +167,7 @@ if ($result['success'] ?? false) {
 
 ## Usage — JavaScript (Vue / React / Plain SPA)
 
-The plugin exposes global helper methods under `window.NativePHP.Biometrics` as well as ES module exports from `iamdevroyal/mobile-biometrics/resources/js/index.js`.
+The plugin exposes global helper methods under `window.NativePHP.Biometrics` as well as ES module exports from `iamdevroyal/nativephp-mobile-biometrics/resources/js/index.js`.
 
 ### Using `window.NativePHP.Biometrics`
 
