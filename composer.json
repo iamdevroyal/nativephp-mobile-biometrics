@@ -1,4 +1,4 @@
-﻿{
+{
   "name": "iamdevroyal/mobile-biometrics",
   "description": "Biometric authentication plugin for NativePHP Mobile (Touch ID, Face ID, Fingerprint) — BIOMETRIC_STRONG enforcement, timeout-bounded native calls, and pre-flight availability checks.",
   "type": "nativephp-plugin",

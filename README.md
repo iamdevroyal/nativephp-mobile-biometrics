@@ -1,4 +1,4 @@
-﻿# iamdevroyal/mobile-biometrics
+# iamdevroyal/mobile-biometrics
 
 **Free, MIT-licensed** biometric authentication plugin for [NativePHP Mobile](https://nativephp.com).  
 Provides native **Face ID**, **Touch ID**, and **Android Biometric (Fingerprint/Class 3 Strong)** authentication for your Laravel + NativePHP mobile applications across Android and iOS.

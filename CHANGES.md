@@ -1,4 +1,4 @@
-﻿# Security Audit & Hardening Log
+# Security Audit & Hardening Log
 
 This document records the architectural analysis, hardening decisions, and engineering considerations implemented in `iamdevroyal/mobile-biometrics`.
 
