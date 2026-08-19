@@ -1,4 +1,4 @@
-package com.iamdevroyal.mobilebiometrics
+﻿package com.iamdevroyal.mobilebiometrics
 
 import androidx.biometric.BiometricManager
 import androidx.biometric.BiometricPrompt
@@ -14,7 +14,7 @@ import java.util.concurrent.TimeUnit
  * Hardened fork of projectmata/mobile-biometrics. See ../../../../../../CHANGES.md
  * (repo root) for the full audit this addresses. Summary of changes from upstream:
  *
- *  - BIOMETRIC_STRONG only (was STRONG or WEAK) — WEAK-class authenticators are not
+ *  - BIOMETRIC_STRONG only (was STRONG or WEAK) â€” WEAK-class authenticators are not
  *    guaranteed spoof-resistant per Android's own CDD; unacceptable for gating a
  *    financial transaction.
  *  - Authenticate() now pre-checks canAuthenticate() before showing the prompt,
@@ -26,9 +26,9 @@ import java.util.concurrent.TimeUnit
  *    execute() on risks an ANR (if that's the main thread) or a permanently
  *    stuck call (if a callback edge case never fires) with no way out.
  *
- *  ⚠️ STILL NEEDS VERIFICATION ON A REAL DEVICE/BUILD: which thread NativePHP's
+ *  âš ï¸ STILL NEEDS VERIFICATION ON A REAL DEVICE/BUILD: which thread NativePHP's
  *  bridge actually calls BridgeFunction.execute() on. If it's the main/UI
- *  thread, blocking it at all — even with a timeout — will make the UI
+ *  thread, blocking it at all â€” even with a timeout â€” will make the UI
  *  unresponsive for the duration of the prompt and may still trigger an ANR
  *  warning before the timeout elapses. The structurally correct fix is an
  *  async execute() that doesn't block any thread, which requires knowing
@@ -52,7 +52,13 @@ class BiometricsPlugin {
         }
 
         private fun getExecutor(activity: FragmentActivity): Executor {
-            return activity.mainExecutor
+            // DEADLOCK FIX: mainExecutor == the UI thread. BiometricPrompt's
+            // callbacks must also run on the UI thread, so awaiting on it from
+            // the UI thread will block the callbacks from ever firing — an
+            // irrecoverable hang. Use a dedicated background thread instead so
+            // latch.await() does not block the callback delivery.
+            // Tracked in CHANGES.md: "Android mainExecutor deadlock fix".
+            return java.util.concurrent.Executors.newSingleThreadExecutor()
         }
 
         private fun biometricManager(activity: FragmentActivity): BiometricManager {
@@ -61,7 +67,7 @@ class BiometricsPlugin {
 
         /**
          * STRONG only. Do not add BIOMETRIC_WEAK back in for anything gating a
-         * money-movement flow — see the audit note above.
+         * money-movement flow â€” see the audit note above.
          */
         private fun allowedAuthenticators(): Int {
             return BiometricManager.Authenticators.BIOMETRIC_STRONG
@@ -118,7 +124,7 @@ class BiometricsPlugin {
     class Authenticate(private val activity: FragmentActivity) : BridgeFunction {
         override fun execute(parameters: Map<String, Any>): Map<String, Any> {
             return try {
-                // Pre-flight check — fail fast with a clear reason instead of
+                // Pre-flight check â€” fail fast with a clear reason instead of
                 // relying on the prompt UI to handle "not available" gracefully
                 // across every OEM's BiometricPrompt implementation.
                 val availability = biometricManager(activity).canAuthenticate(allowedAuthenticators())
@@ -169,7 +175,7 @@ class BiometricsPlugin {
                         }
 
                         override fun onAuthenticationFailed() {
-                            // A single failed attempt (e.g. wrong finger) — the
+                            // A single failed attempt (e.g. wrong finger) â€” the
                             // system prompt stays open for retry, so we do NOT
                             // count down the latch here. Only Succeeded/Error
                             // end the prompt lifecycle.
@@ -212,3 +218,4 @@ class BiometricsPlugin {
         }
     }
 }
+
